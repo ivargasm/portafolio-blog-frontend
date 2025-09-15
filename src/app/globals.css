@@ -1,0 +1,358 @@
+
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-text-main: var(--color-text-main);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-accent-primary: var(--color-accent-primary);
+  --color-accent-secondary: var(--color-accent-secondary);
+  --color-border-color: var(--color-border-color);
+}
+
+:root {
+  /* Tema Claro por defecto */
+  --color-background: #F9FAFB;
+  --color-foreground: #f8f8f8;
+  --color-text-main: #2563EB;
+  --color-text-primary: #111827;
+  --color-text-secondary: #64748B;
+  --color-accent-primary: #5d89e9;
+  --color-accent-secondary: #0D9488;
+  --color-border-color: #E2E8F0;
+}
+
+.dark {
+  /* Tema Oscuro */
+  --color-background: #272525;
+  --color-foreground: #262424;
+  --color-text-main: #3B82F6;
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-accent-primary: #60A5FA;
+  --color-accent-secondary: #2DD4BF;
+  --color-border-color: #374151;
+}
+
+body {
+  @apply bg-background text-text-primary transition-colors duration-300;
+}
+
+/* Pega esto al final de tu archivo app/globals.css */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.grid-background {
+  /* Estilo para modo claro por defecto */
+  background-image:
+    linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark .grid-background {
+  /* Estilo para modo oscuro con transparencia */
+  background-image:
+    linear-gradient(to right, rgba(113, 128, 150, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(113, 128, 150, 0.2) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  /* Estilo para modo claro */
+  background-image: radial-gradient(circle at 1px 1px, #d9dcdf 1px, transparent 0);
+  background-size: 25px 25px;
+}
+
+.dark .bg-dot-pattern {
+  /* Estilo para modo oscuro */
+  background-image: radial-gradient(circle at 1px 1px, rgba(147, 158, 176, 0.2) 1px, transparent 0);
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+
+/* Barra de herramientas */
+.editor-toolbar {
+  background-color: var(--color-background) !important;
+  border-color: var(--color-border-color) !important;
+  opacity: 1 !important;
+  padding: 4px !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+/* Botones de la barra de herramientas */
+.editor-toolbar a {
+  color: var(--color-text-secondary) !important;
+  border: none !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Estado hover (al pasar el ratón) */
+.editor-toolbar a:hover {
+  background-color: var(--color-border-color) !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* Estado activo (cuando un botón está seleccionado, como negrita) */
+.editor-toolbar a.active {
+  background-color: var(--color-accent-primary) !important;
+  color: white !important;
+}
+
+/* Separadores en la barra de herramientas */
+.editor-toolbar i.separator {
+  border-color: var(--color-border-color) !important;
+}
+
+/* Área de escritura del editor */
+.EasyMDEContainer .CodeMirror {
+  background-color: var(--color-background) !important;
+  border-color: var(--color-border-color) !important;
+  color: var(--color-text-primary) !important;
+  border-radius: 0 0 8px 8px !important;
+}
+
+.dark .CodeMirror-cursor {
+  border-left-color: var(--color-text-primary) !important;
+}
+
+/* Barra de estado inferior */
+.editor-statusbar {
+  color: var(--color-text-secondary) !important;
+}
+
+/* Vista previa del Markdown */
+.editor-preview, .editor-preview-side {
+  background-color: var(--color-background) !important;
+}
+
+.editor-toolbar button:hover {
+  background-color: var(--color-border-color) !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* --- Estilos personalizados para Prose --- */
+
+/* Títulos */
+.prose h1, .prose-invert h1 {
+  color: var(--color-text-primary);
+  font-weight: 800;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+}
+
+.prose h2, .prose-invert h2 {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  margin-top: 1.5555556em;
+  margin-bottom: 0.8888889em;
+}
+
+.prose h3, .prose-invert h3 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+}
+
+.prose h4, .prose-invert h4 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Listas */
+.prose ul, .prose-invert ul {
+  list-style-type: disc;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose ol, .prose-invert ol {
+  list-style-type: decimal;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose li, .prose-invert li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose ul > li::marker, .prose-invert ul > li::marker {
+  color: var(--color-accent-secondary);
+}
+
+.prose ol > li::marker, .prose-invert ol > li::marker {
+  color: var(--color-accent-secondary);
+  font-weight: 400;
+}
+
+/* Párrafos */
+.prose p, .prose-invert p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  color: var(--color-text-primary);
+}
+
+/* Enlaces */
+.prose a, .prose-invert a {
+  color: var(--color-accent-primary);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.prose a:hover, .prose-invert a:hover {
+  color: var(--color-accent-secondary);
+}
+
+/* Texto en negrita */
+.prose strong, .prose-invert strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* Texto en cursiva */
+.prose em, .prose-invert em {
+  color: var(--color-text-primary);
+  font-style: italic;
+}
+
+/* Código inline */
+.prose code, .prose-invert code {
+  color: var(--color-text-primary);
+  background-color: var(--color-border-color);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 600;
+}
+
+/* Bloques de código */
+.prose pre, .prose-invert pre {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-top: 1.7142857em;
+  margin-bottom: 1.7142857em;
+}
+
+.prose pre code, .prose-invert pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+/* Blockquotes */
+.prose blockquote, .prose-invert blockquote {
+  font-style: italic;
+  border-left-width: 4px;
+  border-left-color: var(--color-accent-primary);
+  background-color: rgba(226, 232, 240, 0.1);
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1.6em 0;
+  quotes: none;
+}
+
+.dark .prose blockquote, .dark .prose-invert blockquote {
+  background-color: rgba(55, 65, 81, 0.3);
+}
+
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
+}
+
+/* Tablas */
+.prose table, .prose-invert table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-collapse: collapse;
+}
+
+.prose th, .prose-invert th {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  vertical-align: bottom;
+  padding: 0.5714286em;
+  border-bottom: 1px solid var(--color-border-color);
+}
+
+.prose td, .prose-invert td {
+  vertical-align: baseline;
+  padding: 0.5714286em;
+  border-bottom: 1px solid var(--color-border-color);
+}
+
+/* Líneas horizontales */
+.prose hr, .prose-invert hr {
+  border-color: var(--color-border-color);
+  border-top-width: 1px;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
