@@ -10,13 +10,14 @@ interface AuthState {
     loginUser: (email: string, password: string, ur:string) => Promise<void>;
     userAuth: boolean
     userValid: () => Promise<void>;
-    registerUser: (username: string, email: string, password: string) => Promise<boolean>;
+    registerUser: (username: string, email: string, password: string) => Promise<{ success: boolean; data?: unknown; error?: string }>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     userAuth: false,
-    url: 'http://localhost:8000',
+    // url: 'http://localhost:8000',
+    url: 'https://ivm-blog-test-backend-648260980931.us-central1.run.app',
     setUser: (user) => set({ user }),
     loginUser: async (email, password) => {
         const data = await login(email, password, useAuthStore.getState().url);
@@ -52,11 +53,12 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
     },
     registerUser: async (username, email, password) => {
-        const success = await register(username, email, password, useAuthStore.getState().url);
-        if (!success) {
-            return false;
+        try {
+            const result = await register(username, email, password, useAuthStore.getState().url);
+            return { success: true, data: result };
+        } catch (error) {
+            return { success: false, error: error instanceof Error ? error.message : 'Error desconocido' };
         }
-        return success;
     },
     
 }));

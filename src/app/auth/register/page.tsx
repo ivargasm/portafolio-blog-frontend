@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "../../store/Store";
-
+import { Navbar } from "@/app/components/layout/Navbar";
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,7 +13,7 @@ import { EyeIcon, EyeOffIcon } from "lucide-react"
 
 export default function RegisterPage() {
     const router = useRouter();
-    const { registerUser, userValid, userAuth, user } = useAuthStore();
+    const { registerUser, userAuth, user } = useAuthStore();
 
     const [form, setForm] = useState({
         username: "",
@@ -32,13 +32,6 @@ export default function RegisterPage() {
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(!showConfirmPassword)
     }
-
-    useEffect(() => {
-        const validateUser = async () => {
-            await userValid();
-        };
-        validateUser();
-    }, [userValid]);
 
     useEffect(() => {
         if ((userAuth || user)) {
@@ -91,49 +84,51 @@ export default function RegisterPage() {
         e.preventDefault();
         if (!validateForm()) return;
 
-        const success = await registerUser(form.username, form.email, form.password);
-        if (success) {
+        const result = await registerUser(form.username, form.email, form.password);
+        if (result.success) {
             router.push("/auth/login");
         } else {
-            setErrors(["Error al registrar. Inténtalo nuevamente."]);
+            setErrors([result.error || "Error al registrar. Inténtalo nuevamente."]);
         }
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
-            <form onSubmit={handleSubmit}>
-                <Card className="w-full max-w-md shadow-lg bg-white dark:bg-gray-800">
-                    {errors.length > 0 && (
-                        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
-                            {errors.map((error, index) => (
-                                <p key={index}>• {error}</p>
-                            ))}
-                        </div>
-                    )}
-                    <CardHeader className="space-y-1">
-                        <CardTitle className="text-2xl font-bold text-center text-gray-900 dark:text-white">Crear cuenta</CardTitle>
-                        <CardDescription className="text-center text-gray-500 dark:text-gray-400">Ingresa tus datos para registrarte</CardDescription>
-                    </CardHeader>
+        <>
+            <Navbar />
+            <div className="flex min-h-screen items-center justify-center bg-background p-4">
+                <form onSubmit={handleSubmit}>
+                    <Card className="w-full max-w-md shadow-lg bg-background border-border-color">
+                        {errors.length > 0 && (
+                            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+                                {errors.map((error, index) => (
+                                    <p key={index}>• {error}</p>
+                                ))}
+                            </div>
+                        )}
+                        <CardHeader className="space-y-1">
+                            <CardTitle className="text-2xl font-bold text-center text-text-primary">Crear cuenta</CardTitle>
+                            <CardDescription className="text-center text-text-secondary">Ingresa tus datos para registrarte</CardDescription>
+                        </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
-                            <Label className="text-gray-700 dark:text-gray-300" htmlFor="username">Usuario</Label>
-                            <Input className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600" id="username" 
+                            <Label className="text-text-primary" htmlFor="username">Usuario</Label>
+                            <Input className="bg-background border-border-color text-text-primary placeholder:text-text-secondary" id="username" 
                                 placeholder="Ingresa tu nombre de usuario" 
                                 value={form.username}
                                 onChange={(e) => setForm({ ...form, username: e.target.value.trim() })}
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-gray-700 dark:text-gray-300" htmlFor="email">Correo electrónico</Label>
-                            <Input className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600" id="email" type="email" placeholder="tu@ejemplo.com"
+                            <Label className="text-text-primary" htmlFor="email">Correo electrónico</Label>
+                            <Input className="bg-background border-border-color text-text-primary placeholder:text-text-secondary" id="email" type="email" placeholder="tu@ejemplo.com"
                                 value={form.email}
                                 onChange={(e) => setForm({ ...form, email: e.target.value.trim() })}
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-gray-700 dark:text-gray-300" htmlFor="password">Contraseña</Label>
+                            <Label className="text-text-primary" htmlFor="password">Contraseña</Label>
                             <div className="relative">
-                                <Input className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600" id="password" 
+                                <Input className="bg-background border-border-color text-text-primary placeholder:text-text-secondary" id="password" 
                                     type={showPassword ? "text" : "password"} 
                                     placeholder="Ingresa tu contraseña" 
                                     value={form.password}
@@ -143,22 +138,22 @@ export default function RegisterPage() {
                                     type="button"
                                     variant="ghost"
                                     size="icon"
-                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                                    className="absolute right-0 top-0 h-full px-3 py-2 text-text-secondary hover:text-text-primary"
                                     onClick={togglePasswordVisibility}
                                 >
                                     {showPassword ? (
-                                        <EyeOffIcon className="h-4 w-4 text-gray-500" />
+                                        <EyeOffIcon className="h-4 w-4" />
                                     ) : (
-                                        <EyeIcon className="h-4 w-4 text-gray-500" />
+                                        <EyeIcon className="h-4 w-4" />
                                     )}
                                     <span className="sr-only">{showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}</span>
                                 </Button>
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-gray-700 dark:text-gray-300" htmlFor="confirmPassword">Repetir contraseña</Label>
+                            <Label className="text-text-primary" htmlFor="confirmPassword">Repetir contraseña</Label>
                             <div className="relative">
-                                <Input className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                                <Input className="bg-background border-border-color text-text-primary placeholder:text-text-secondary"
                                     id="confirmPassword"
                                     type={showConfirmPassword ? "text" : "password"}
                                     placeholder="Confirma tu contraseña"
@@ -169,13 +164,13 @@ export default function RegisterPage() {
                                     type="button"
                                     variant="ghost"
                                     size="icon"
-                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                                    className="absolute right-0 top-0 h-full px-3 py-2 text-text-secondary hover:text-text-primary"
                                     onClick={toggleConfirmPasswordVisibility}
                                 >
                                     {showConfirmPassword ? (
-                                        <EyeOffIcon className="h-4 w-4 text-gray-500" />
+                                        <EyeOffIcon className="h-4 w-4" />
                                     ) : (
-                                        <EyeIcon className="h-4 w-4 text-gray-500" />
+                                        <EyeIcon className="h-4 w-4" />
                                     )}
                                     <span className="sr-only">{showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"}</span>
                                 </Button>
@@ -183,19 +178,21 @@ export default function RegisterPage() {
                         </div>
                     </CardContent>
                     <CardFooter className="flex flex-col space-y-4">
-                        <Button className="w-full bg-gray-500 dark:bg-gray-700 border-gray-300 dark:border-gray-600 hover:bg-primary/90 text-white">
+                        <Button className="w-full bg-accent-primary hover:bg-accent-primary/90 text-white border-0">
                             Registrarse
                         </Button>
                         <div className="text-center text-sm">
-                            ¿Ya tienes una cuenta?{" "}
-                            <Link href="/auth/login" className="text-slate-800 dark:text-slate-300 hover:underline font-medium">
-                                Iniciar sesión
-                            </Link>
+                            <p className="text-text-secondary">
+                                ¿Ya tienes una cuenta?{" "}
+                                <Link href="/auth/login" className="text-accent-primary hover:text-accent-secondary transition-colors">
+                                    Iniciar sesión
+                                </Link>
+                            </p>
                         </div>
                     </CardFooter>
                 </Card>
-
             </form>
         </div>
+        </>
     );
 }

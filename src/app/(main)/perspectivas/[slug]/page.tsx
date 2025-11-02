@@ -17,7 +17,7 @@ interface ArticuloPageProps {
 
 // --- FUNCIÓN PARA SEO DINÁMICO (Se ejecuta en el servidor) ---
 export async function generateMetadata({ params }: ArticuloPageProps): Promise<Metadata> {
-    const { slug } = params;
+    const { slug } = await params;
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
     try {
@@ -51,7 +51,8 @@ async function getPostData(slug: string): Promise<PostResponse | null> {
 
 // --- El componente principal de la página (Ahora es un Componente de Servidor) ---
 export default async function ArticuloPage({ params }: ArticuloPageProps) {
-    const post = await getPostData(params.slug);
+    const { slug } = await params;
+    const post = await getPostData(slug);
 
     // Pasamos los datos obtenidos en el servidor al componente de cliente
     return <PostClientView initialPost={post} />;

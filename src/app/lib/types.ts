@@ -34,3 +34,52 @@ export interface ContactFormPayload {
     message: string;
     honeypot?: string; // El campo para el bot
 }
+
+// Define la forma de los datos que enviamos a la API para crear un proyecto.
+export interface Project {
+id: number;
+title: string;
+description: string;
+imageUrl: string;
+projectUrl: string;
+repoUrl: string;
+technologies: string[];
+category: string;
+order: number;
+}
+
+export interface ProjectCreatePayload {
+title: string;
+description: string;
+imageUrl: string;
+projectUrl: string;
+repoUrl: string;
+technologies: string[];
+category: string;
+order: number;
+}
+
+export type ProjectUpdatePayload = Partial<ProjectCreatePayload>;
+
+
+// --- Tipos para Servicios ---
+
+export interface ServiceResponse {
+id: string;
+title: string;
+description: string;
+imageUrl: string;
+features: string[];
+order: number;
+created_at: string;
+}
+
+export interface ServiceCreatePayload {
+title: string;
+description: string;
+imageUrl: string;
+features: string[];
+order?: number;
+}
+
+export type ServiceUpdatePayload = Partial<ServiceCreatePayload>;

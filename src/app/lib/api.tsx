@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { PostCreatePayload, PostResponse, PostUpdatePayload, ContactFormPayload } from "./types";
+import { PostCreatePayload, PostResponse, PostUpdatePayload, ContactFormPayload, ProjectCreatePayload, ProjectUpdatePayload, ServiceCreatePayload, ServiceUpdatePayload } from "./types";
 
 export const fetchUser = async (url: string) => {
     const res = await fetch(`${url}/auth/me`, { credentials: 'include' });
@@ -36,14 +36,19 @@ export async function register(username: string, email: string, password: string
             body: JSON.stringify({ username, email, password }),
         });
 
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.detail || 'Error en el registro');
+        }
+
         return res.json();
     } catch (error) {
         console.error("Error en el registro:", error);
-        return false;
+        throw error; // Re-lanzar el error para que lo maneje el store
     }
 }
 
-export async function forgot_password(url: string, email: string){
+export async function forgot_password(url: string, email: string) {
     const res = await fetch(`${url}/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -54,7 +59,7 @@ export async function forgot_password(url: string, email: string){
     return res;
 }
 
-export async function reset_password(url: string, new_password: string, token: string){
+export async function reset_password(url: string, new_password: string, token: string) {
     const res = await fetch(`${url}/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -141,7 +146,7 @@ export const deletePost = async (postId: number, url: string): Promise<void> => 
     if (!res.ok) {
         // El status 204 (No Content) es un éxito pero no tiene cuerpo JSON
         if (res.status === 204) return;
-        
+
         const errorData = await res.json();
         throw new Error(errorData.detail || 'Error al borrar el post');
     }
@@ -189,4 +194,119 @@ export const sendContactMessage = async (formData: ContactFormPayload, url: stri
     }
 
     return res.json();
+};
+
+
+// --- Funciones para Proyectos ---
+
+export const getProjects = async (url: string) => {
+    const res = await fetch(`${url}/api/projects/`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('No se pudieron obtener los proyectos.');
+    return res.json();
+};
+
+export const getProjectById = async (id: number, url: string) => {
+    const res = await fetch(`${url}/api/projects/${id}`, { credentials: 'include' });
+    if (!res.ok) throw new Error('No se pudo obtener el proyecto.');
+    return res.json();
+};
+
+export const createProject = async (projectData: ProjectCreatePayload, url: string) => {
+    const res = await fetch(`${url}/api/projects/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(projectData),
+    });
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al crear el proyecto.');
+    }
+    return res.json();
+};
+
+export const updateProject = async (id: number, projectData: ProjectUpdatePayload, url: string) => {
+    const res = await fetch(`${url}/api/projects/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(projectData),
+    });
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al actualizar el proyecto.');
+    }
+    return res.json();
+};
+
+export const deleteProject = async (id: number, url: string): Promise<void> => {
+    const res = await fetch(`${url}/api/projects/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+    });
+
+    if (!res.ok) {
+        let errorMessage = 'Error al borrar el proyecto.';
+        try {
+            const errorData = await res.json();
+            errorMessage = errorData.detail || errorMessage;
+        } catch {
+            // Si no se puede parsear el JSON del error, usar mensaje por defecto
+        }
+        throw new Error(errorMessage);
+    }
+
+    // Para DELETE exitoso, no intentar parsear JSON, solo retornar
+    return;
+};
+
+// --- Funciones CRUD para Servicios ---
+
+export const getServices = async (url: string) => {
+    const res = await fetch(`${ url }/api/services`, { credentials: 'include' });
+    if (!res.ok) throw new Error('Error al obtener los servicios');
+    return res.json();
+};
+
+export const getServiceById = async (id: string, url: string) => {
+    const res = await fetch(`${ url }/api/services/${ id }`, { credentials: 'include' });
+    if (!res.ok) throw new Error('Servicio no encontrado');
+    return res.json();
+};
+
+export const createService = async (data: ServiceCreatePayload, url: string) => {
+    const res = await fetch(`${ url }/api/services`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al crear el servicio');
+    }
+    return res.json();
+};
+
+export const updateService = async (id: string, data: ServiceUpdatePayload, url: string) => {
+    const res = await fetch(`${ url }/api/services/${ id }`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al actualizar el servicio');
+    }
+    return res.json();
+};
+
+export const deleteService = async (id: string, url: string) => {
+    const res = await fetch(`${ url }/api/services/${ id }`, {
+        method: 'DELETE',
+        credentials: 'include',
+    });
+    if (!res.ok) throw new Error('Error al borrar el servicio');
+    return { success: true };
 };

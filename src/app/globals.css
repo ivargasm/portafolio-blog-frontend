@@ -13,31 +13,32 @@
 }
 
 :root {
-  /* Tema Claro por defecto */
-  --color-background: #F9FAFB;
-  --color-foreground: #f8f8f8;
-  --color-text-main: #2563EB;
-  --color-text-primary: #111827;
-  --color-text-secondary: #64748B;
-  --color-accent-primary: #5d89e9;
-  --color-accent-secondary: #0D9488;
+  /* Tema Claro - Con degradado más visible */
+  --color-background: linear-gradient(135deg, #ffffff 0%, #e1ebf4 50%, #d8dce0 100%);
+  --color-foreground: #F8FAFC;
+  --color-text-main: #1E40AF;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-accent-primary: #3B82F6;
+  --color-accent-secondary: #059669;
   --color-border-color: #E2E8F0;
 }
 
 .dark {
-  /* Tema Oscuro */
-  --color-background: #272525;
-  --color-foreground: #262424;
-  --color-text-main: #3B82F6;
-  --color-text-primary: #F1F5F9;
-  --color-text-secondary: #94A3B8;
-  --color-accent-primary: #60A5FA;
-  --color-accent-secondary: #2DD4BF;
-  --color-border-color: #374151;
+  /* Tema Oscuro - Con degradado sutil */
+  --color-background: linear-gradient(135deg, #1a1a1a 0%, #2d2d30 50%, #1e1e1e 100%);
+  --color-foreground: #2a2a2a;
+  --color-text-main: #FFFFFF;
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #D1D5DB;
+  --color-accent-primary: #0EA5E9;
+  --color-accent-secondary: #F97316;
+  --color-border-color: #4B5563;
 }
 
 body {
-  @apply bg-background text-text-primary transition-colors duration-300;
+  @apply text-text-primary transition-colors duration-300;
+  background: var(--color-background);
 }
 
 /* Pega esto al final de tu archivo app/globals.css */

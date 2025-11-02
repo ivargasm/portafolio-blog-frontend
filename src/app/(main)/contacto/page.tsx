@@ -41,7 +41,7 @@ export default function ContactoPage() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8 md:py-16">
+        <div className="max-w-5xl mx-auto px-4 py-8 md:py-16">
             <header className="text-center mb-16">
                 <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-text-primary">
                     Hablemos

@@ -25,7 +25,7 @@ function HeroSection() {
         <section className="relative text-center pt-12 md:pt-20 pb-12 md:pb-20 overflow-hidden">
             <div className="absolute inset-0 -z-10 grid-background"></div>
             <div className="absolute inset-0 -z-20 bg-background"></div>
-            <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto px-4">
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary leading-tight animate-fade-in-up">
                     Ingeniero de Datos y Desarrollador de Software
                 </h1>
@@ -65,7 +65,7 @@ function PillarsSection() {
     ];
 
     return (
-        <section className="container mx-auto px-4">
+        <section className="max-w-4xl mx-auto px-4">
             <div className="text-center">
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">Mis Pilares de Trabajo</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-text-secondary">
@@ -113,7 +113,7 @@ function FeaturedProjectsSection() {
     ];
 
     return (
-        <section className="container mx-auto px-4">
+        <section className="max-w-4xl mx-auto px-4">
             <div className="text-center">
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">Proyectos Destacados</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-text-secondary">
@@ -149,7 +149,7 @@ function FeaturedProjectsSection() {
 
 function CTASection() {
     return (
-        <section className="container mx-auto px-4">
+        <section className="max-w-4xl mx-auto px-4">
             <div className="relative text-center bg-gradient-to-r from-accent-primary to-accent-secondary py-16 md:py-20 rounded-xl shadow-2xl overflow-hidden">
                 <div className="relative z-10">
                     <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">¿Tienes una idea o un reto en mente?</h2>

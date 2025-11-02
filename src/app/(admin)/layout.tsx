@@ -4,7 +4,8 @@
 // =================================================================================
 'use client'
 import Link from 'next/link';
-import { Home, FilePlus, LayoutDashboard, LogOut } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { LayoutDashboard, LogOut, Briefcase, Home, Wrench } from 'lucide-react';
 import ProtectedRoute from '../components/ProtectedRoutes';
 import { useAuthStore } from '../store/Store';
 
@@ -15,31 +16,48 @@ export default function AdminLayout({
 }) {
 
     const { logout } = useAuthStore();
+    const pathname = usePathname();
+
+    const navLinks = [
+        { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+        { href: '/projects', label: 'Proyectos', icon: Briefcase },
+        { href: '/services', label: 'Servicios', icon: Wrench },
+        { href: '/', label: 'Inicio', icon: Home }
+    ];
 
     return (
         <ProtectedRoute>
             <div className="flex min-h-screen bg-background">
                 {/* Barra Lateral de Navegación */}
-                <aside className="w-64 border-r border-border-color p-6 hidden md:block">
-                    <nav className="flex flex-col space-y-4">
-                        <h2 className="font-heading text-xl font-bold mb-4">Panel</h2>
-                        <Link href="/dashboard" className="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors">
-                            <LayoutDashboard size={20} />
-                            <span>Dashboard</span>
-                        </Link>
-                        <Link href="/posts/new" className="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors">
-                            <FilePlus size={20} />
-                            <span>Nuevo Post</span>
-                        </Link>
-                        <hr className="border-border-color my-4" />
-                        <Link href="/" className="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors">
-                            <Home size={20} />
-                            <span>Volver al Sitio</span>
-                        </Link>
-                        <Link onClick={() => { logout(); } } className="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors" href={"/"}>
-                            <LogOut size={20} /> Logout
-                        </Link>
-                    </nav>
+                <aside className="w-64 flex-shrink-0 border-r border-border-color p-6">
+                    <div className="flex flex-col h-full">
+                        <h1 className="font-heading text-2xl font-bold mb-8">Panel</h1>
+                        <nav className="flex flex-col space-y-2 flex-grow">
+                            {navLinks.map((link) => {
+                                const isActive = pathname === link.href;
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className={`flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${isActive
+                                                ? 'bg-accent-primary text-white'
+                                                : 'hover:bg-border-color'
+                                            }`}
+                                    >
+                                        <link.icon size={20} />
+                                        <span>{link.label}</span>
+                                    </Link>
+                                );
+                            })}
+                        </nav>
+                        <button
+                            onClick={logout}
+                            className="flex items-center gap-3 px-4 py-2 rounded-md transition-colors text-text-secondary hover:bg-red-500 hover:text-white"
+                        >
+                            <LogOut size={20} />
+                            <span>Cerrar Sesión</span>
+                        </button>
+                    </div>
                 </aside>
 
                 {/* Contenido Principal */}

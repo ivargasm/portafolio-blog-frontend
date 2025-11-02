@@ -14,7 +14,7 @@ import { useAuthStore } from '@/app/store/Store';
 export const Navbar = () => {
     const navLinks = [
         { href: '/sobre-mi', label: 'Sobre Mí' },
-        { href: '/servicios', label: 'Servicios' },
+        { href: '/servicios', label: 'Especialidades' },
         { href: '/proyectos', label: 'Proyectos' },
         { href: '/perspectivas', label: 'Blog' },
         // { href: '/dashboard', label: 'dashboard' },
@@ -60,7 +60,7 @@ export const Navbar = () => {
                                 {link.label}
                             </Link>
                         ))}
-                        {userAuth && (
+                        {userAuth ? (
                             <>
                                 <Link key="/dashboard" href="/dashboard" className="flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-accent-primary transition-colors">
                                     <span>Dashboard</span>
@@ -70,6 +70,10 @@ export const Navbar = () => {
                                     <span>Salir</span>
                                 </button>
                             </>
+                        ) : (
+                            <Link href="/auth/login" className="text-sm font-medium text-text-secondary hover:text-accent-primary transition-colors">
+                                Iniciar sesión
+                            </Link>
                         )}
                     </div>
 
@@ -121,11 +125,19 @@ export const Navbar = () => {
                                     {link.label}
                                 </Link>
                             ))}
-                            {userAuth && (
+                            {userAuth ? (
                                 <button onClick={handleLogout} className="flex items-center gap-2 text-lg font-medium text-text-primary hover:text-accent-primary transition-colors py-2 rounded-md px-2">
                                     <LogOut size={20} />
                                     <span>Logout</span>
                                 </button>
+                            ) : (
+                                <Link
+                                    href="/auth/login"
+                                    onClick={handleLinkClick}
+                                    className="text-lg font-medium text-text-primary hover:text-accent-primary transition-colors py-2 rounded-md px-2"
+                                >
+                                    Iniciar sesión
+                                </Link>
                             )}
                         </nav>
                     </div>
