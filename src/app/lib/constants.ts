@@ -1,0 +1,1 @@
+export const API_URL = 'https://ivm-blog-test-backend-648260980931.us-central1.run.app';

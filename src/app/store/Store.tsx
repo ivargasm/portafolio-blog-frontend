@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { login, fetchUser, logout, register } from "../lib/api";
+import { API_URL } from '../lib/constants';
 import { redirect } from 'next/navigation';
 
 interface AuthState {
@@ -16,8 +17,7 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     userAuth: false,
-    // url: 'http://localhost:8000',
-    url: 'https://ivm-blog-test-backend-648260980931.us-central1.run.app',
+    url: API_URL,
     setUser: (user) => set({ user }),
     loginUser: async (email, password) => {
         const data = await login(email, password, useAuthStore.getState().url);

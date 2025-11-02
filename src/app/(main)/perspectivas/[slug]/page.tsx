@@ -8,17 +8,18 @@
 // Ajusta estas rutas relativas si tu estructura es diferente.
 import { getPostBySlug } from '@/app/lib/api';
 import { PostResponse } from '@/app/lib/types';
+import { API_URL } from '@/app/lib/constants';
 import { Metadata } from 'next';
 import PostClientView from './PostClientView';
 
 interface ArticuloPageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 // --- FUNCIÓN PARA SEO DINÁMICO (Se ejecuta en el servidor) ---
 export async function generateMetadata({ params }: ArticuloPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || API_URL;
 
     try {
         const post = await getPostBySlug(slug, apiUrl);
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: ArticuloPageProps): Promise<M
 
 // --- FUNCIÓN PARA OBTENER DATOS (Se ejecuta en el servidor) ---
 async function getPostData(slug: string): Promise<PostResponse | null> {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || API_URL;
     try {
         const post = await getPostBySlug(slug, apiUrl);
         return post;
