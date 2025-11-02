@@ -1,1 +1,1 @@
-export const API_URL = 'https://ivm-blog-production-backend-648260980931.us-central1.run.app';
+export const API_URL = 'https://api.ivargasm.com';
