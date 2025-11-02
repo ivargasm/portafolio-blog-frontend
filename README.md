@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Ismael Vargas - Portafolio & Blog LegalTech
 
-## Getting Started
+Portafolio personal y blog especializado en la intersección entre **tecnología** y **derecho**, desarrollado con Next.js 15 y tecnologías modernas.
 
-First, run the development server:
+## ✨ Características
+
+- **🎨 Diseño Moderno**: Interfaz elegante con Tailwind CSS y shadcn/ui
+- **🌙 Tema Dinámico**: Soporte para modo claro/oscuro
+- **📝 Blog Integrado**: Sistema de gestión de contenido con editor Markdown
+- **🔐 Autenticación**: Sistema completo de login/registro con Zustand
+- **📱 Responsive**: Optimizado para todos los dispositivos
+- **⚡ Performance**: Construido con Next.js 15 y Turbopack
+- **🎯 SEO Optimizado**: Metadatos y estructura optimizada para buscadores
+
+## 🛠️ Stack Tecnológico
+
+### Frontend
+- **Framework**: Next.js 15 (App Router)
+- **Lenguaje**: TypeScript
+- **Estilos**: Tailwind CSS 4
+- **Componentes**: shadcn/ui + Radix UI
+- **Estado**: Zustand
+- **Iconos**: Heroicons + Lucide React
+
+### Funcionalidades
+- **Editor**: SimpleMDE (Markdown)
+- **Sintaxis**: Highlight.js
+- **Notificaciones**: React Hot Toast
+- **Tipografías**: Inter + Manrope (Google Fonts)
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+- Node.js 18+
+- npm, yarn, pnpm o bun
+
+### Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clonar el repositorio
+git clone [https://github.com/ivargasm/portafolio-blog-frontend.git]
+cd frontend
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Variables de Entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+# API Backend
+NEXT_PUBLIC_API_URL=tu-backend-url
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Otras configuraciones...
+```
 
-## Learn More
+### Desarrollo
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Servidor de desarrollo con Turbopack
+npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Construcción para producción
+npm run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Servidor de producción
+npm run start
 
-## Deploy on Vercel
+# Linting
+npm run lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Abre [http://localhost:3000](http://localhost:3000) para ver la aplicación.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── (admin)/          # Panel administrativo
+│   ├── (main)/           # Páginas principales
+│   │   ├── contacto/     # Página de contacto
+│   │   ├── perspectivas/ # Blog posts
+│   │   ├── proyectos/    # Portafolio de proyectos
+│   │   ├── servicios/    # Servicios ofrecidos
+│   │   └── sobre-mi/     # Información personal
+│   ├── auth/             # Autenticación
+│   ├── components/       # Componentes de la app
+│   ├── lib/              # Utilidades y API
+│   └── store/            # Estado global (Zustand)
+├── components/ui/        # Componentes UI reutilizables
+└── lib/                  # Utilidades compartidas
+```
+
+## 🎯 Funcionalidades Principales
+
+### 📖 Blog "Perspectivas"
+- Artículos sobre tecnología y derecho
+- Editor Markdown integrado
+- Sintaxis highlighting para código
+- Sistema de categorías y tags
+
+### 💼 Portafolio
+- Showcase de proyectos
+- Casos de estudio detallados
+- Tecnologías utilizadas
+
+### 🔐 Sistema de Autenticación
+- Registro y login de usuarios
+- Gestión de sesiones
+- Roles y permisos
+
+### 📞 Contacto & Servicios
+- Formulario de contacto
+- Descripción de servicios LegalTech
+- Información profesional
+
+## 🌐 Despliegue
+
+### Vercel (Recomendado)
+```bash
+# Conectar con Vercel
+vercel
+
+# O usar el dashboard de Vercel
+# https://vercel.com/new
+```
+
+### Otros Proveedores
+- **Netlify**: Compatible con builds estáticos
+- **Railway**: Para aplicaciones full-stack
+- **Google Cloud Run**: Para contenedores
+
+## 📧 Contacto
+
+**Ismael Vargas** - Ingeniero de Datos & LegalTech
+
+- 🌐 Website: [ivargasm.com]
+- 📧 Email: [contacto@ivargasm.com]
+- 💼 LinkedIn: [linkedin.com/in/ismael-vargas-martinez-47a618195/]
+- 🐙 GitHub: [github.com/ivargasm]
+
+---
+
+⭐ Si este proyecto te resulta útil, ¡no olvides darle una estrella!
