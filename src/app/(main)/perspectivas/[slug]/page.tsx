@@ -16,9 +16,6 @@ interface ArticuloPageProps {
     params: Promise<{ slug: string }>;
 }
 
-// Forzar revalidación cada 60 segundos
-export const revalidate = 60;
-
 // --- FUNCIÓN PARA SEO DINÁMICO (Se ejecuta en el servidor) ---
 export async function generateMetadata({ params }: ArticuloPageProps): Promise<Metadata> {
     const { slug } = await params;
