@@ -19,10 +19,9 @@ interface ArticuloPageProps {
 // --- FUNCIÓN PARA SEO DINÁMICO (Se ejecuta en el servidor) ---
 export async function generateMetadata({ params }: ArticuloPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || API_URL;
 
     try {
-        const post = await getPostBySlug(slug, apiUrl);
+        const post = await getPostBySlug(slug, API_URL);
         return {
             title: `${post.title} | Ismael Vargas M.`,
             description: post.excerpt,
@@ -40,9 +39,8 @@ export async function generateMetadata({ params }: ArticuloPageProps): Promise<M
 
 // --- FUNCIÓN PARA OBTENER DATOS (Se ejecuta en el servidor) ---
 async function getPostData(slug: string): Promise<PostResponse | null> {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || API_URL;
     try {
-        const post = await getPostBySlug(slug, apiUrl);
+        const post = await getPostBySlug(slug, API_URL);
         return post;
     } catch (error) {
         console.error("Failed to fetch post data:", error);
