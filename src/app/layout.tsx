@@ -3,6 +3,7 @@ import { Manrope, Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from './theme-provider';
 import { Toaster } from 'react-hot-toast';
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   subsets: ['latin'],
@@ -45,6 +46,7 @@ export default function RootLayout({
             }}
           />
           {children}
+          <Analytics/>
         </ThemeProvider>
       </body>
     </html>
