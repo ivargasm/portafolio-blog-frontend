@@ -126,18 +126,16 @@ export const updatePublishStatus = async (postId: number, isPublished: boolean, 
 // --- FUNCIÓN PARA OBTENER UN POST POR SLUG ---
 export const getPostBySlug = async (slug: string, url: string): Promise<PostResponse> => {
     const fullUrl = `${url}/api/posts/${slug}`;
-    console.log('Fetching post from:', fullUrl);
     
     const res = await fetch(fullUrl, {
         cache: 'no-store',
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (compatible; ivargasm-frontend/1.0)'
+        }
     });
-
-    console.log('Response status:', res.status);
     
     if (!res.ok) {
-        const errorText = await res.text();
-        console.error('Error response:', errorText);
-        throw new Error(`Post no encontrado: ${res.status} - ${errorText}`);
+        throw new Error(`Post no encontrado: ${res.status}`);
     }
 
     return res.json();
