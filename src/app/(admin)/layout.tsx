@@ -5,7 +5,7 @@
 'use client'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, LogOut, Briefcase, Home, Wrench } from 'lucide-react';
+import { LayoutDashboard, LogOut, Briefcase, Home, Wrench, MessageSquare } from 'lucide-react';
 import ProtectedRoute from '../components/ProtectedRoutes';
 import { useAuthStore } from '../store/Store';
 
@@ -22,6 +22,7 @@ export default function AdminLayout({
         { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
         { href: '/projects', label: 'Proyectos', icon: Briefcase },
         { href: '/services', label: 'Servicios', icon: Wrench },
+        { href: '/dashboard/comentarios', label: 'Comentarios', icon: MessageSquare },
         { href: '/', label: 'Inicio', icon: Home }
     ];
 
@@ -40,8 +41,8 @@ export default function AdminLayout({
                                         key={link.href}
                                         href={link.href}
                                         className={`flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${isActive
-                                                ? 'bg-accent-primary text-white'
-                                                : 'hover:bg-border-color'
+                                            ? 'bg-accent-primary text-white'
+                                            : 'hover:bg-border-color'
                                             }`}
                                     >
                                         <link.icon size={20} />

@@ -9,6 +9,8 @@ import { PostResponse } from '@/app/lib/types';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/atom-one-dark.css';
+import PostLikeButton from '@/app/components/PostLikeButton';
+import PostComments from '@/app/components/PostComments';
 
 interface PostClientViewProps {
     initialPost: PostResponse | null;
@@ -56,7 +58,15 @@ export default function PostClientView({ initialPost }: PostClientViewProps) {
                         {post.content}
                     </ReactMarkdown>
                 </div>
+
+                {/* Botón de Like al final del artículo */}
+                <div className="mt-12 flex justify-center">
+                    <PostLikeButton postId={post.id} />
+                </div>
             </article>
+
+            {/* Sección de Comentarios */}
+            <PostComments postId={post.id} />
         </div>
     );
 }

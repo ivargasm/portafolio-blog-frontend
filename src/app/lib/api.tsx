@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { PostCreatePayload, PostResponse, PostUpdatePayload, ContactFormPayload, ProjectCreatePayload, ProjectUpdatePayload, ServiceCreatePayload, ServiceUpdatePayload } from "./types";
+import { PostCreatePayload, PostResponse, PostUpdatePayload, ContactFormPayload, ProjectCreatePayload, ProjectUpdatePayload, ServiceCreatePayload, ServiceUpdatePayload, PostLikeStats, PostCommentCreate, PostCommentUpdate, PostCommentWithReplies, PostCommentDeleteRequest, PostCommentResponse } from "./types";
 
 export const fetchUser = async (url: string) => {
     const res = await fetch(`${url}/auth/me`, { credentials: 'include' });
@@ -126,14 +126,14 @@ export const updatePublishStatus = async (postId: number, isPublished: boolean, 
 // --- FUNCIÓN PARA OBTENER UN POST POR SLUG ---
 export const getPostBySlug = async (slug: string, url: string): Promise<PostResponse> => {
     const fullUrl = `${url}/api/posts/${slug}`;
-    
+
     const res = await fetch(fullUrl, {
         cache: 'no-store',
         headers: {
             'User-Agent': 'Mozilla/5.0 (compatible; ivargasm-frontend/1.0)'
         }
     });
-    
+
     if (!res.ok) {
         throw new Error(`Post no encontrado: ${res.status}`);
     }
@@ -268,19 +268,19 @@ export const deleteProject = async (id: number, url: string): Promise<void> => {
 // --- Funciones CRUD para Servicios ---
 
 export const getServices = async (url: string) => {
-    const res = await fetch(`${ url }/api/services`, { credentials: 'include' });
+    const res = await fetch(`${url}/api/services`, { credentials: 'include' });
     if (!res.ok) throw new Error('Error al obtener los servicios');
     return res.json();
 };
 
 export const getServiceById = async (id: string, url: string) => {
-    const res = await fetch(`${ url }/api/services/${ id }`, { credentials: 'include' });
+    const res = await fetch(`${url}/api/services/${id}`, { credentials: 'include' });
     if (!res.ok) throw new Error('Servicio no encontrado');
     return res.json();
 };
 
 export const createService = async (data: ServiceCreatePayload, url: string) => {
-    const res = await fetch(`${ url }/api/services`, {
+    const res = await fetch(`${url}/api/services`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -294,7 +294,7 @@ export const createService = async (data: ServiceCreatePayload, url: string) => 
 };
 
 export const updateService = async (id: string, data: ServiceUpdatePayload, url: string) => {
-    const res = await fetch(`${ url }/api/services/${ id }`, {
+    const res = await fetch(`${url}/api/services/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -308,10 +308,207 @@ export const updateService = async (id: string, data: ServiceUpdatePayload, url:
 };
 
 export const deleteService = async (id: string, url: string) => {
-    const res = await fetch(`${ url }/api/services/${ id }`, {
+    const res = await fetch(`${url}/api/services/${id}`, {
         method: 'DELETE',
         credentials: 'include',
     });
     if (!res.ok) throw new Error('Error al borrar el servicio');
     return { success: true };
+};
+
+
+// --- Funciones para Likes ---
+
+/**
+ * Alternar like en un post (agregar o quitar)
+ */
+export const togglePostLike = async (postId: number, url: string): Promise<void> => {
+    const res = await fetch(`${url}/api/posts/${postId}/likes`, {
+        method: 'POST',
+        credentials: 'include',
+    });
+
+    if (!res.ok && res.status !== 200) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al procesar el like');
+    }
+};
+
+/**
+ * Obtener estadísticas de likes de un post
+ */
+export const getPostLikeStats = async (postId: number, url: string): Promise<PostLikeStats> => {
+    const res = await fetch(`${url}/api/posts/${postId}/likes/stats`, {
+        credentials: 'include',
+        cache: 'no-store',
+    });
+
+    if (!res.ok) {
+        throw new Error('Error al obtener estadísticas de likes');
+    }
+
+    return res.json();
+};
+
+
+// --- Funciones para Comentarios ---
+
+/**
+ * Obtener comentarios de un post con respuestas anidadas
+ */
+export const getPostComments = async (
+    postId: number,
+    url: string,
+    page: number = 1,
+    pageSize: number = 50
+): Promise<PostCommentWithReplies[]> => {
+    const res = await fetch(
+        `${url}/api/posts/${postId}/comments?page=${page}&page_size=${pageSize}`,
+        {
+            cache: 'no-store',
+        }
+    );
+
+    if (!res.ok) {
+        throw new Error('Error al obtener comentarios');
+    }
+
+    return res.json();
+};
+
+/**
+ * Crear un nuevo comentario
+ */
+export const createComment = async (
+    commentData: PostCommentCreate,
+    url: string
+): Promise<PostCommentResponse> => {
+    const res = await fetch(`${url}/api/posts/${commentData.post_id}/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(commentData),
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al crear el comentario');
+    }
+
+    return res.json();
+};
+
+/**
+ * Editar un comentario existente
+ */
+export const updateComment = async (
+    commentId: number,
+    updateData: PostCommentUpdate,
+    url: string
+): Promise<PostCommentResponse> => {
+    const res = await fetch(`${url}/api/posts/comments/${commentId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(updateData),
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al editar el comentario');
+    }
+
+    return res.json();
+};
+
+/**
+ * Eliminar un comentario
+ */
+export const deleteComment = async (
+    commentId: number,
+    deleteData: PostCommentDeleteRequest,
+    url: string
+): Promise<void> => {
+    const res = await fetch(`${url}/api/posts/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(deleteData),
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al eliminar el comentario');
+    }
+};
+
+
+// --- Funciones de Administración de Comentarios ---
+
+/**
+ * Obtener todos los comentarios para moderación (solo admin)
+ */
+export const getAllCommentsAdmin = async (
+    url: string,
+    skip: number = 0,
+    limit: number = 100
+): Promise<PostCommentResponse[]> => {
+    const res = await fetch(
+        `${url}/api/posts/admin/comments?skip=${skip}&limit=${limit}`,
+        {
+            credentials: 'include',
+            cache: 'no-store',
+        }
+    );
+
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        console.error('Error response:', errorData);
+        throw new Error(errorData.detail || 'Error al obtener comentarios para moderación');
+    }
+
+    return res.json();
+};
+
+/**
+ * Aprobar o rechazar un comentario (solo admin)
+ */
+export const approveComment = async (
+    commentId: number,
+    isApproved: boolean,
+    url: string
+): Promise<PostCommentResponse> => {
+    const res = await fetch(`${url}/api/posts/comments/${commentId}/approve`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ is_approved: isApproved }),
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al actualizar el comentario');
+    }
+
+    return res.json();
+};
+
+/**
+ * Eliminar un comentario como admin (sin necesidad de edit_token)
+ */
+export const deleteCommentAdmin = async (
+    commentId: number,
+    url: string
+): Promise<void> => {
+    const res = await fetch(`${url}/api/posts/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({}),
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || 'Error al eliminar el comentario');
+    }
 };
