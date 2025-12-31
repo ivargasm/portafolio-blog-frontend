@@ -99,7 +99,7 @@ export default function NewProjectPage() {
                 </div>
 
                 <div className="flex justify-end">
-                    <button type="submit" className="px-6 py-2 font-semibold text-white bg-accent-primary rounded-md shadow-sm hover:bg-opacity-90">
+                    <button type="submit" className="px-6 py-2 font-semibold text-white bg-text-secondary rounded-md shadow-sm hover:bg-opacity-90 cursor-pointer">
                         Guardar Proyecto
                     </button>
                 </div>

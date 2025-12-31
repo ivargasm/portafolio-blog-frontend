@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { useAuthStore } from '@/app/store/Store';
 import { getServices, deleteService } from '@/app/lib/api';
 import { ServiceResponse } from '@/app/lib/types';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2, Plus } from 'lucide-react';
 
 export default function ServicesDashboardPage() {
     const apiUrl = useAuthStore((state) => state.url);
@@ -35,7 +35,13 @@ export default function ServicesDashboardPage() {
             <div className="flex flex-col gap-4">
                 <p>¿Seguro que quieres borrar el servicio <strong>{serviceToDelete.title}</strong>?</p>
                 <div className="flex gap-2 justify-end">
-                    <button onClick={() => toast.dismiss(t.id)} className="px-4 py-2 text-sm font-medium bg-border-color rounded-md">Cancelar</button>
+                    <button
+                        onClick={() => toast.dismiss(t.id)}
+                        className="px-4 py-2 text-sm font-medium rounded-md"
+                        style={{ backgroundColor: 'var(--surface)', color: 'var(--text-primary)' }}
+                    >
+                        Cancelar
+                    </button>
                     <button
                         onClick={() => {
                             toast.dismiss(t.id);
@@ -48,7 +54,7 @@ export default function ServicesDashboardPage() {
                                 error: (err) => `Error: ${err.message}`,
                             });
                         }}
-                        className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-md"
+                        className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600"
                     >
                         Borrar
                     </button>
@@ -57,43 +63,114 @@ export default function ServicesDashboardPage() {
         ), { duration: 6000 });
     };
 
-    if (isLoading) return <div>Cargando servicios...</div>;
-    if (error) return <div className="text-red-500">Error: {error}</div>;
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-lg font-medium" style={{ color: 'var(--text-secondary)' }}>
+                    Cargando servicios...
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-lg font-medium text-red-500">Error: {error}</div>
+            </div>
+        );
+    }
 
     return (
-        <div>
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="font-heading text-3xl font-bold">Gestionar Servicios</h1>
-                <Link href="/services/new" className="px-4 py-2 font-semibold text-white bg-accent-primary rounded-md shadow-sm hover:bg-opacity-90">
+        <div className="space-y-8">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="font-heading text-4xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                        Gestionar Servicios
+                    </h1>
+                    <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
+                        Administra los servicios que ofreces
+                    </p>
+                </div>
+                <Link
+                    href="/services/new"
+                    className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105"
+                    style={{ backgroundColor: 'var(--primary)' }}
+                >
+                    <Plus size={20} />
                     Añadir Servicio
                 </Link>
             </div>
-            <div className="bg-background border border-border-color rounded-lg shadow-md overflow-hidden">
-                <table className="min-w-full divide-y divide-border-color">
-                    <thead className="bg-border-color/50 dark:bg-border-color/20">
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Título</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Orden</th>
-                            <th className="relative px-6 py-3"><span className="sr-only">Acciones</span></th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border-color">
-                        {services.length > 0 ? (
-                            services.map((service) => (
-                                <tr key={service.id}>
-                                    <td className="px-6 py-4 font-medium">{service.title}</td>
-                                    <td className="px-6 py-4">{service.order}</td>
-                                    <td className="px-6 py-4 text-right space-x-4">
-                                        <Link href={`/services/edit/${service.id}`} className="text-accent-primary hover:text-accent-primary/80 inline-block"><Edit size={18} /></Link>
-                                        <button onClick={() => handleDelete(service)} className="text-red-500 hover:text-red-400"><Trash2 size={18} /></button>
+
+            {/* Services Table */}
+            <div className="rounded-2xl border overflow-hidden"
+                style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border)' }}>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y" style={{ borderColor: 'var(--border)' }}>
+                        <thead style={{ backgroundColor: 'var(--background)' }}>
+                            <tr>
+                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)' }}>
+                                    Título
+                                </th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)' }}>
+                                    Orden
+                                </th>
+                                <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)' }}>
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y" style={{ borderColor: 'var(--border)' }}>
+                            {services.length > 0 ? (
+                                services.map((service) => (
+                                    <tr key={service.id} className="hover:bg-[var(--background)] transition-colors">
+                                        <td className="px-6 py-4">
+                                            <div className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                                                {service.title}
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className="text-sm px-3 py-1 rounded-full font-medium"
+                                                style={{
+                                                    backgroundColor: 'var(--background)',
+                                                    color: 'var(--text-secondary)'
+                                                }}>
+                                                {service.order}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <div className="flex items-center justify-end gap-3">
+                                                <Link
+                                                    href={`/services/edit/${service.id}`}
+                                                    className="p-2 rounded-lg transition-colors hover:bg-[var(--background)]"
+                                                    style={{ color: 'var(--primary)' }}
+                                                >
+                                                    <Edit size={18} />
+                                                </Link>
+                                                <button
+                                                    onClick={() => handleDelete(service)}
+                                                    className="p-2 rounded-lg transition-colors hover:bg-red-50 text-red-500"
+                                                >
+                                                    <Trash2 size={18} />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={3} className="px-6 py-12 text-center" style={{ color: 'var(--text-secondary)' }}>
+                                        No hay servicios creados.
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr><td colSpan={3} className="px-6 py-4 text-center text-text-secondary">No hay servicios creados.</td></tr>
-                        )}
-                    </tbody>
-                </table>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

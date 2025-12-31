@@ -132,7 +132,7 @@ export default function NewPostPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="px-6 py-2 font-semibold text-white bg-accent-primary rounded-md shadow-sm hover:bg-opacity-90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                        className="px-6 py-2 font-semibold text-white bg-text-secondary rounded-md shadow-sm hover:bg-opacity-90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer"
                     >
                         {isLoading ? 'Guardando...' : 'Guardar Post'}
                     </button>

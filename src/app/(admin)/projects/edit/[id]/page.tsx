@@ -111,8 +111,8 @@ export default function EditProjectPage() {
                     <input type="number" name="order" id="order" value={formData.order} onChange={handleChange} required className="w-full bg-background border border-border-color rounded-md px-3 py-2" />
                 </div>
                 <div className="flex gap-4">
-                    <button type="submit" className="px-6 py-2 font-semibold text-white bg-accent-primary rounded-md">Guardar Cambios</button>
-                    <button type="button" onClick={() => router.back()} className="px-6 py-2 font-semibold text-text-secondary bg-border-color rounded-md">Cancelar</button>
+                    <button type="submit" className="px-6 py-2 font-semibold text-white bg-text-secondary rounded-md cursor-pointer">Guardar Cambios</button>
+                    <button type="button" onClick={() => router.back()} className="px-6 py-2 font-semibold text-text-secondary bg-red-500/50 rounded-md cursor-pointer">Cancelar</button>
                 </div>
             </form>
         </div>

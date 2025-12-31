@@ -1,44 +1,98 @@
-
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: var(--color-background);
-  --color-foreground: var(--color-foreground);
-  --color-text-main: var(--color-text-main);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-accent-primary: var(--color-accent-primary);
-  --color-accent-secondary: var(--color-accent-secondary);
-  --color-border-color: var(--color-border-color);
+  /* Variables para Tailwind */
+  --color-primary: var(--primary);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
 }
 
 :root {
-  /* Tema Claro - Con degradado más visible */
-  --color-background: linear-gradient(135deg, #ffffff 0%, #e1ebf4 50%, #d8dce0 100%);
-  --color-foreground: #F8FAFC;
-  --color-text-main: #1E40AF;
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #475569;
-  --color-accent-primary: #3B82F6;
+  /* ============================================
+     PALETA DE COLORES - MODO CLARO (LIGHT MODE)
+     ============================================ */
+
+  /* Color principal - Morado vibrante */
+  --primary: #8c2bee;
+
+  /* Fondos */
+  --background: #ffffff;
+  /* Fondo principal blanco */
+  --surface: #f7f6f8;
+  /* Superficies/Cards gris muy claro */
+
+  /* Bordes */
+  --border: #e5e7eb;
+  /* Bordes gris claro */
+
+  /* Textos */
+  --text-primary: #0f1115;
+  /* Texto principal casi negro */
+  --text-secondary: #6b7280;
+  /* Texto secundario gris medio */
+
+  /* Acento */
+  --accent: #8c2bee;
+  /* Color de acento (mismo que primary) */
+
+  /* Colores legacy para compatibilidad */
+  --color-background: #ffffff;
+  --color-foreground: #f7f6f8;
+  --color-text-main: #8c2bee;
+  --color-text-primary: #0f1115;
+  --color-text-secondary: #6b7280;
+  --color-accent-primary: #8c2bee;
   --color-accent-secondary: #059669;
-  --color-border-color: #E2E8F0;
+  --color-border-color: #e5e7eb;
 }
 
 .dark {
-  /* Tema Oscuro - Con degradado sutil */
-  --color-background: linear-gradient(135deg, #1a1a1a 0%, #2d2d30 50%, #1e1e1e 100%);
-  --color-foreground: #2a2a2a;
-  --color-text-main: #FFFFFF;
-  --color-text-primary: #F9FAFB;
-  --color-text-secondary: #D1D5DB;
-  --color-accent-primary: #0EA5E9;
-  --color-accent-secondary: #F97316;
-  --color-border-color: #4B5563;
+  /* ============================================
+     PALETA DE COLORES - MODO OSCURO (DARK MODE)
+     ============================================ */
+
+  /* Color principal - Morado vibrante */
+  --primary: #8c2bee;
+
+  /* Fondos */
+  --background: #0f1115;
+  /* Fondo principal oscuro */
+  --surface: #181b21;
+  /* Superficies/Cards oscuras */
+
+  /* Bordes */
+  --border: #2a2f3a;
+  /* Bordes oscuros */
+
+  /* Textos */
+  --text-primary: #ffffff;
+  /* Texto principal blanco */
+  --text-secondary: #9ca3af;
+  /* Texto secundario gris claro */
+
+  /* Acento */
+  --accent: #a855f7;
+  /* Color de acento morado más claro */
+
+  /* Colores legacy para compatibilidad */
+  --color-background: #0f1115;
+  --color-foreground: #181b21;
+  --color-text-main: #ffffff;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #9ca3af;
+  --color-accent-primary: #8c2bee;
+  --color-accent-secondary: #a855f7;
+  --color-border-color: #2a2f3a;
 }
 
 body {
-  @apply text-text-primary transition-colors duration-300;
-  background: var(--color-background);
+  @apply transition-colors duration-300;
+  background-color: var(--background);
+  color: var(--text-primary);
 }
 
 /* Pega esto al final de tu archivo app/globals.css */
@@ -48,6 +102,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -97,12 +152,15 @@ body {
   0% {
     transform: translate(0px, 0px) scale(1);
   }
+
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
+
   100% {
     transform: translate(0px, 0px) scale(1);
   }
@@ -165,7 +223,8 @@ body {
 }
 
 /* Vista previa del Markdown */
-.editor-preview, .editor-preview-side {
+.editor-preview,
+.editor-preview-side {
   background-color: var(--color-background) !important;
 }
 
@@ -177,7 +236,8 @@ body {
 /* --- Estilos personalizados para Prose --- */
 
 /* Títulos */
-.prose h1, .prose-invert h1 {
+.prose h1,
+.prose-invert h1 {
   color: var(--color-text-primary);
   font-weight: 800;
   font-size: 2.25rem;
@@ -186,7 +246,8 @@ body {
   margin-bottom: 0.8888889em;
 }
 
-.prose h2, .prose-invert h2 {
+.prose h2,
+.prose-invert h2 {
   color: var(--color-text-primary);
   font-weight: 700;
   font-size: 1.875rem;
@@ -195,7 +256,8 @@ body {
   margin-bottom: 0.8888889em;
 }
 
-.prose h3, .prose-invert h3 {
+.prose h3,
+.prose-invert h3 {
   color: var(--color-text-primary);
   font-weight: 600;
   font-size: 1.5rem;
@@ -204,7 +266,8 @@ body {
   margin-bottom: 0.6em;
 }
 
-.prose h4, .prose-invert h4 {
+.prose h4,
+.prose-invert h4 {
   color: var(--color-text-primary);
   font-weight: 600;
   font-size: 1.25rem;
@@ -214,66 +277,77 @@ body {
 }
 
 /* Listas */
-.prose ul, .prose-invert ul {
+.prose ul,
+.prose-invert ul {
   list-style-type: disc;
   margin-top: 1.25em;
   margin-bottom: 1.25em;
   padding-left: 1.625em;
 }
 
-.prose ol, .prose-invert ol {
+.prose ol,
+.prose-invert ol {
   list-style-type: decimal;
   margin-top: 1.25em;
   margin-bottom: 1.25em;
   padding-left: 1.625em;
 }
 
-.prose li, .prose-invert li {
+.prose li,
+.prose-invert li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
 
-.prose ul > li::marker, .prose-invert ul > li::marker {
+.prose ul>li::marker,
+.prose-invert ul>li::marker {
   color: var(--color-accent-secondary);
 }
 
-.prose ol > li::marker, .prose-invert ol > li::marker {
+.prose ol>li::marker,
+.prose-invert ol>li::marker {
   color: var(--color-accent-secondary);
   font-weight: 400;
 }
 
 /* Párrafos */
-.prose p, .prose-invert p {
+.prose p,
+.prose-invert p {
   margin-top: 1.25em;
   margin-bottom: 1.25em;
   color: var(--color-text-primary);
 }
 
 /* Enlaces */
-.prose a, .prose-invert a {
+.prose a,
+.prose-invert a {
   color: var(--color-accent-primary);
   text-decoration: underline;
   font-weight: 500;
 }
 
-.prose a:hover, .prose-invert a:hover {
+.prose a:hover,
+.prose-invert a:hover {
   color: var(--color-accent-secondary);
 }
 
 /* Texto en negrita */
-.prose strong, .prose-invert strong {
+.prose strong,
+.prose-invert strong {
   color: var(--color-text-primary);
   font-weight: 600;
 }
 
 /* Texto en cursiva */
-.prose em, .prose-invert em {
+.prose em,
+.prose-invert em {
   color: var(--color-text-primary);
   font-style: italic;
 }
 
 /* Código inline */
-.prose code, .prose-invert code {
+.prose code,
+.prose-invert code {
   color: var(--color-text-primary);
   background-color: var(--color-border-color);
   padding: 0.2em 0.4em;
@@ -283,7 +357,8 @@ body {
 }
 
 /* Bloques de código */
-.prose pre, .prose-invert pre {
+.prose pre,
+.prose-invert pre {
   background-color: var(--color-background);
   border: 1px solid var(--color-border-color);
   border-radius: 0.5rem;
@@ -293,7 +368,8 @@ body {
   margin-bottom: 1.7142857em;
 }
 
-.prose pre code, .prose-invert pre code {
+.prose pre code,
+.prose-invert pre code {
   background-color: transparent;
   border-width: 0;
   border-radius: 0;
@@ -306,7 +382,8 @@ body {
 }
 
 /* Blockquotes */
-.prose blockquote, .prose-invert blockquote {
+.prose blockquote,
+.prose-invert blockquote {
   font-style: italic;
   border-left-width: 4px;
   border-left-color: var(--color-accent-primary);
@@ -317,7 +394,8 @@ body {
   quotes: none;
 }
 
-.dark .prose blockquote, .dark .prose-invert blockquote {
+.dark .prose blockquote,
+.dark .prose-invert blockquote {
   background-color: rgba(55, 65, 81, 0.3);
 }
 
@@ -327,7 +405,8 @@ body {
 }
 
 /* Tablas */
-.prose table, .prose-invert table {
+.prose table,
+.prose-invert table {
   width: 100%;
   table-layout: auto;
   text-align: left;
@@ -336,7 +415,8 @@ body {
   border-collapse: collapse;
 }
 
-.prose th, .prose-invert th {
+.prose th,
+.prose-invert th {
   color: var(--color-text-primary);
   font-weight: 600;
   vertical-align: bottom;
@@ -344,14 +424,16 @@ body {
   border-bottom: 1px solid var(--color-border-color);
 }
 
-.prose td, .prose-invert td {
+.prose td,
+.prose-invert td {
   vertical-align: baseline;
   padding: 0.5714286em;
   border-bottom: 1px solid var(--color-border-color);
 }
 
 /* Líneas horizontales */
-.prose hr, .prose-invert hr {
+.prose hr,
+.prose-invert hr {
   border-color: var(--color-border-color);
   border-top-width: 1px;
   margin-top: 3em;

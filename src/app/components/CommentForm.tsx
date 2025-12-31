@@ -171,7 +171,8 @@ export default function CommentForm({
                 <button
                     type="submit"
                     disabled={isSubmitting || content.trim().length < 10 || authorName.trim().length < 2 || !authorEmail.trim()}
-                    className="flex items-center gap-2 px-6 py-2 rounded-lg bg-accent-primary text-white hover:bg-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-6 py-2 rounded-lg text-white font-semibold transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ backgroundColor: 'var(--primary)' }}
                 >
                     {isSubmitting ? (
                         <>

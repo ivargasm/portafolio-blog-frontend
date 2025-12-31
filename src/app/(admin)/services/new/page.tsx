@@ -57,7 +57,7 @@ export default function NewServicePage() {
                     <textarea id="items" value={itemsText} onChange={(e) => setItemsText(e.target.value)} required rows={5} className="mt-1 block w-full bg-background border border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-primary focus:border-accent-primary" />
                 </div>
                 <div className="flex justify-end">
-                    <button type="submit" disabled={isLoading} className="px-6 py-2 font-semibold text-white bg-accent-primary rounded-md shadow-sm hover:bg-opacity-90 disabled:bg-gray-400">
+                    <button type="submit" disabled={isLoading} className="px-6 py-2 font-semibold text-white bg-text-secondary rounded-md shadow-sm hover:bg-opacity-90 disabled:bg-gray-400 cursor-pointer">
                         {isLoading ? 'Guardando...' : 'Guardar Servicio'}
                     </button>
                 </div>

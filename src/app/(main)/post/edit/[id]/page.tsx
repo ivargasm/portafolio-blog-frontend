@@ -106,7 +106,7 @@ export default function EditPostPage() {
                     <MarkdownEditor value={post.content || ''} onChange={handleEditorChange} />
                 </div>
                 <div className="flex justify-end">
-                    <button type="submit" disabled={isSaving} className="px-6 py-2 font-semibold text-white bg-accent-primary rounded-md shadow-sm hover:bg-opacity-90 disabled:bg-gray-400">
+                    <button type="submit" disabled={isSaving} className="px-6 py-2 font-semibold text-white bg-text-secondary rounded-md shadow-sm hover:bg-opacity-90 disabled:bg-gray-400 cursor-pointer">
                         {isSaving ? 'Guardando Cambios...' : 'Guardar Cambios'}
                     </button>
                 </div>

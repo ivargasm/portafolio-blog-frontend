@@ -84,7 +84,7 @@ export default function EditServicePage() {
                     <input type="number" id="order" value={service.order} onChange={(e) => setService({ ...service, order: parseInt(e.target.value, 10) })} required className="mt-1 block w-full bg-background border border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-primary focus:border-accent-primary" />
                 </div>
                 <div className="flex justify-end">
-                    <button type="submit" className="px-6 py-2 font-semibold text-white bg-accent-primary rounded-md shadow-sm hover:bg-opacity-90">
+                    <button type="submit" className="px-6 py-2 font-semibold text-white bg-text-secondary rounded-md shadow-sm hover:bg-opacity-90 cursor-pointer">
                         Actualizar Servicio
                     </button>
                 </div>
