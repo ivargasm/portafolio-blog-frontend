@@ -97,6 +97,7 @@ export default function NewPostPage() {
                             <option>Ingeniería de Datos</option>
                             <option>Desarrollo de Software</option>
                             <option>Cumplimiento Normativo</option>
+                            <option>Python</option>
                         </select>
                     </div>
                     <div>
