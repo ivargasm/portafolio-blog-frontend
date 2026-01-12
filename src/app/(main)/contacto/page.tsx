@@ -108,7 +108,7 @@ export default function ContactoPage() {
                                     </p>
                                     <p className="text-lg font-semibold"
                                         style={{ color: 'var(--text-primary)' }}>
-                                        Guadalajara, Jalisco, MX
+                                        Querétaro, Querétaro, MX
                                     </p>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@ export default function ContactoPage() {
                             </div>
                             <p className="text-sm leading-relaxed"
                                 style={{ color: 'var(--text-secondary)' }}>
-                                Python • Pandas • SQL • NLP for Law • Automations
+                                Python • Pandas • SQL • Automatizaciones
                             </p>
                         </div>
                     </div>

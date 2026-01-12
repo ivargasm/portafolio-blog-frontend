@@ -4,7 +4,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Scale, Code, Database, BookOpen, Shield, FileText, ArrowRight } from 'lucide-react';
+import { Scale, Code, Database, BookOpen, Shield, FileText, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function SobreMiPage() {
     return (
@@ -39,6 +39,7 @@ function HeroSection() {
                     <div className="space-y-6">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border"
                             style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface)' }}>
+                            <Sparkles className="w-4 h-4" style={{ color: 'var(--primary)' }} />
                             <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
                                 Ingeniero & Abogado en formación
                             </span>
