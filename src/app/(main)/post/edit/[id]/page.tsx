@@ -90,6 +90,7 @@ export default function EditPostPage() {
                             <option>Ingeniería de Datos</option>
                             <option>Desarrollo de Software</option>
                             <option>Cumplimiento Normativo</option>
+                            <option>Python</>
                         </select>
                     </div>
                     <div>
