@@ -110,7 +110,7 @@ export default function PerspectivasPage() {
                         <p className="text-xl md:text-2xl leading-relaxed mb-8" style={{ color: 'var(--text-secondary)' }}>
                             Un punto de encuentro entre la lógica algorítmica y el razonamiento jurídico. Aquí exploro desde{' '}
                             <strong style={{ color: 'var(--primary)' }}>arquitecturas de datos y optimización en Python</strong>,
-                            hasta estrategias de <strong style={{ color: 'var(--primary)' }}>LegalTech</strong> y análisis práctico de la normativa laboral.
+                            hasta estrategias de <strong style={{ color: 'var(--primary)' }}>LegalTech</strong> y el análisis integral del marco jurídico.
                         </p>
 
                         {/* Filtros de categoría */}

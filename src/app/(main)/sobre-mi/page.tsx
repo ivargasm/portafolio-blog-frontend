@@ -161,7 +161,7 @@ function ProfessionalJourneySection() {
             year: '2022 - Actualidad',
             role: 'Derecho e Innovación Legal',
             company: 'Universidad CESBA',
-            description: 'Estudios enfocados en la intersección de la tecnología y la ley. Analizo el Derecho Mercantil y Laboral no solo como normas, sino como <strong style="color: var(--primary)">algoritmos sociales</strong> listos para ser optimizados y democratizados.',
+            description: 'Estudios enfocados en la intersección de la tecnología y la ley. Analizo el marco jurídico no solo como un conjunto de normas, sino como <strong style="color: var(--primary)">algoritmos sociales</strong> listos para ser optimizados y democratizados.',
             icon: <Scale className="w-5 h-5" />
         }
     ];
@@ -224,8 +224,8 @@ function DualCompetenciesSection() {
 
     const legalKnowledge = [
         { name: 'Legal Operations (Legal Ops)', description: 'Ingeniería de procesos jurídicos: transformación de flujos de trabajo manuales en sistemas automatizados eficientes.', icon: <Shield className="w-6 h-6" /> },
-        { name: 'Ingeniería Contractual', description: 'Estructuración de contratos como datos estructurados, facilitando su generación masiva y análisis.', icon: <FileText className="w-6 h-6" /> },
-        { name: 'Enfoque Mercantil & Laboral', description: 'Interés activo en la digitalización de procesos comerciales y la gestión de relaciones laborales.', icon: <BookOpen className="w-6 h-6" /> },
+        { name: 'Ingeniería Contractual', description: 'Transformación de documentos legales en estructuras de datos, optimizando su generación automatizada y análisis a escala.', icon: <FileText className="w-6 h-6" /> },
+        { name: 'Desarrollo de Productos Legales', description: 'Diseño de aplicaciones y plataformas que traducen la complejidad normativa en herramientas accesibles y amigables para el usuario.', icon: <BookOpen className="w-6 h-6" /> },
     ];
 
     return (
