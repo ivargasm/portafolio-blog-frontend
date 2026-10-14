@@ -41,7 +41,7 @@ function HeroSection() {
                             style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface)' }}>
                             <Sparkles className="w-4 h-4" style={{ color: 'var(--primary)' }} />
                             <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-                                Ingeniero & Abogado en formación
+                                Ingeniero & Licenciado en Derecho
                             </span>
                         </div>
 
@@ -55,7 +55,7 @@ function HeroSection() {
                         <p className="text-xl md:text-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                             En el sector jurídico, la tecnología a menudo llega tarde; en el desarrollo de software, la ley suele verse como un obstáculo invisible. <b>Yo opero justo en esa intersección.</b>
                             <br />
-                            No soy solo un desarrollador que &quot;conoce&quot; leyes, ni un estudiante de derecho que &quot;sabe algo&quot; de computadoras. Poseo la capacidad técnica para diseñar arquitecturas de datos escalables y el criterio jurídico para entender el fondo de un litigio o contrato. No necesitas un intermediario entre tus ingenieros y tu equipo legal: <b>yo hablo ambos idiomas de forma nativa.</b>
+                            No soy solo un desarrollador que &quot;conoce&quot; leyes, ni un jurista que &quot;sabe algo&quot; de computadoras. Poseo la capacidad técnica para diseñar arquitecturas de datos escalables y el criterio jurídico para entender el fondo de un litigio o contrato. No necesitas un intermediario entre tus ingenieros y tu equipo legal: <b>yo hablo ambos idiomas de forma nativa.</b>
                         </p>
 
                         <div className="flex flex-wrap gap-4 pt-4">
@@ -90,7 +90,7 @@ function HeroSection() {
                             {/* Overlay con info */}
                             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
                                 <p className="text-white font-semibold text-lg">Ismael Vargas M.</p>
-                                <p className="text-white/80 text-sm">Systems Engineer • Law Student</p>
+                                <p className="text-white/80 text-sm">Systems Engineer • Lic. en Derecho</p>
                             </div>
                         </div>
 
@@ -158,10 +158,10 @@ function ProfessionalJourneySection() {
             icon: <Database className="w-5 h-5" />
         },
         {
-            year: '2022 - Actualidad',
-            role: 'Derecho e Innovación Legal',
+            year: '2022 - 2026',
+            role: 'Licenciatura en Derecho',
             company: 'Universidad CESBA',
-            description: 'Estudios enfocados en la intersección de la tecnología y la ley. Analizo el marco jurídico no solo como un conjunto de normas, sino como <strong style="color: var(--primary)">algoritmos sociales</strong> listos para ser optimizados y democratizados.',
+            description: 'Formación jurídica enfocada en la intersección de la tecnología y la ley. Analizo el marco jurídico no solo como un conjunto de normas, sino como <strong style="color: var(--primary)">algoritmos sociales</strong> listos para ser optimizados y democratizados.',
             icon: <Scale className="w-5 h-5" />
         }
     ];

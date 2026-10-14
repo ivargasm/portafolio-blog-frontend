@@ -97,7 +97,7 @@ function HeroSection() {
                                 <div className="flex items-center gap-2">
                                     <Scale className="w-5 h-5" style={{ color: 'var(--primary)' }} />
                                     <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-                                        Estudiante de Derecho
+                                        Licenciado en Derecho
                                     </span>
                                 </div>
                             </div>

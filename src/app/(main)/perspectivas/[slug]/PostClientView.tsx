@@ -200,7 +200,7 @@ export default function PostClientView({ initialPost }: PostClientViewProps) {
                                 Sobre el Autor
                             </h3>
                             <p className="text-lg mb-4" style={{ color: 'var(--text-secondary)' }}>
-                                Ingeniero de Sistemas especializado en Datos y estudiante de Derecho.
+                                Ingeniero de Sistemas especializado en Datos y Licenciado en Derecho.
                                 Apasionado por construir soluciones LegalTech que combinen la precisión
                                 técnica con el rigor analítico del derecho.
                             </p>
