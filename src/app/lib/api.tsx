@@ -70,6 +70,22 @@ export async function reset_password(url: string, new_password: string, token: s
     return res;
 }
 
+export async function changePassword(url: string, current_password: string, new_password: string) {
+    const res = await fetch(`${url}/auth/change-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ current_password, new_password }),
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Error al cambiar la contraseña');
+    }
+    return res.json();
+}
+
+
 // --- FUNCIÓN PARA CREAR POSTS ---
 
 export const createPost = async (postData: PostCreatePayload, url: string): Promise<PostResponse> => {

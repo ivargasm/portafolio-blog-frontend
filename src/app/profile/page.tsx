@@ -1,26 +1,24 @@
 "use client";
 
-import { useAuthStore } from "../store/Store";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ProtectedRoute from "../components/ProtectedRoutes";
 
 export default function ProfilePage() {
-    const { user, logout } = useAuthStore();
+    const router = useRouter();
+
+    useEffect(() => {
+        router.replace("/dashboard/perfil");
+    }, [router]);
 
     return (
         <ProtectedRoute>
-            <div className="max-w-md mx-auto mt-10 p-6 bg-white text-gray-800 rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-4">Perfil del Usuario</h2>
-                <p><strong>Nombre:</strong> {user?.username}</p>
-                <p><strong>Email:</strong> {user?.email}</p>
-                <p><strong>Rol:</strong> {user?.role}</p>
-                <button
-                    className="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                    onClick={logout}
-                >
-                    Cerrar sesión
-                </button>
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                    Redirigiendo a tu perfil y seguridad...
+                </p>
             </div>
-            
         </ProtectedRoute>
     );
 }
+

@@ -5,7 +5,7 @@
 'use client'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, LogOut, Briefcase, Home, Wrench, MessageSquare, User } from 'lucide-react';
+import { LayoutDashboard, LogOut, Briefcase, Home, Wrench, MessageSquare, User, KeyRound } from 'lucide-react';
 import ProtectedRoute from '../components/ProtectedRoutes';
 import { useAuthStore } from '../store/Store';
 
@@ -23,6 +23,7 @@ export default function AdminLayout({
         { href: '/projects', label: 'Proyectos', icon: Briefcase },
         { href: '/services', label: 'Servicios', icon: Wrench },
         { href: '/dashboard/comentarios', label: 'Comentarios', icon: MessageSquare },
+        { href: '/dashboard/perfil', label: 'Perfil y Seguridad', icon: KeyRound },
     ];
 
     return (
@@ -34,26 +35,28 @@ export default function AdminLayout({
                     <div className="flex flex-col h-full p-6">
                         {/* Logo/Header */}
                         <div className="mb-8">
-                            <div className="flex items-center gap-3 mb-2">
-                                <div className="w-10 h-10 rounded-full flex items-center justify-center"
+                            <Link href="/dashboard/perfil" className="flex items-center gap-3 mb-2 group">
+                                <div className="w-10 h-10 rounded-full flex items-center justify-center transition-transform group-hover:scale-105"
                                     style={{ backgroundColor: 'var(--primary)' }}>
                                     <User className="w-5 h-5 text-white" />
                                 </div>
                                 <div>
-                                    <h2 className="font-heading font-bold" style={{ color: 'var(--text-primary)' }}>
+                                    <h2 className="font-heading font-bold group-hover:text-[var(--primary)] transition-colors" style={{ color: 'var(--text-primary)' }}>
                                         Admin
                                     </h2>
                                     <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                                         Panel de Control
                                     </p>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
 
                         {/* Navigation */}
                         <nav className="flex flex-col space-y-1 flex-grow">
                             {navLinks.map((link) => {
-                                const isActive = pathname === link.href || pathname?.startsWith(link.href + '/');
+                                const isActive = link.href === '/dashboard'
+                                    ? pathname === '/dashboard'
+                                    : (pathname === link.href || pathname?.startsWith(link.href + '/'));
                                 return (
                                     <Link
                                         key={link.href}

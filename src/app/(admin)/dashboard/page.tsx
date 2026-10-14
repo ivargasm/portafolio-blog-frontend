@@ -198,33 +198,39 @@ export default function DashboardPage() {
             {/* Posts Table */}
             <div className="rounded-2xl border overflow-hidden"
                 style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border)' }}>
-                <div className="p-6 border-b" style={{ borderColor: 'var(--border)' }}>
-                    <h2 className="font-heading text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
-                        Todos los Posts
-                    </h2>
+                <div className="p-6 border-b flex items-center justify-between" style={{ borderColor: 'var(--border)' }}>
+                    <div className="flex items-center gap-3">
+                        <h2 className="font-heading text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                            Todos los Posts
+                        </h2>
+                        <span className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                            style={{ backgroundColor: 'var(--background)', color: 'var(--text-secondary)' }}>
+                            {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+                        </span>
+                    </div>
                 </div>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto overflow-y-auto max-h-[540px] custom-scrollbar">
                     <table className="min-w-full divide-y" style={{ borderColor: 'var(--border)' }}>
-                        <thead style={{ backgroundColor: 'var(--background)' }}>
+                        <thead className="sticky top-0 z-10 shadow-sm" style={{ backgroundColor: 'var(--background)' }}>
                             <tr>
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
-                                    style={{ color: 'var(--text-secondary)' }}>
+                                <th className="sticky top-0 px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)', backgroundColor: 'var(--background)' }}>
                                     Título
                                 </th>
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
-                                    style={{ color: 'var(--text-secondary)' }}>
+                                <th className="sticky top-0 px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)', backgroundColor: 'var(--background)' }}>
                                     Categoría
                                 </th>
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
-                                    style={{ color: 'var(--text-secondary)' }}>
+                                <th className="sticky top-0 px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)', backgroundColor: 'var(--background)' }}>
                                     Estado
                                 </th>
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
-                                    style={{ color: 'var(--text-secondary)' }}>
+                                <th className="sticky top-0 px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)', backgroundColor: 'var(--background)' }}>
                                     Fecha
                                 </th>
-                                <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider"
-                                    style={{ color: 'var(--text-secondary)' }}>
+                                <th className="sticky top-0 px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider"
+                                    style={{ color: 'var(--text-secondary)', backgroundColor: 'var(--background)' }}>
                                     Acciones
                                 </th>
                             </tr>
