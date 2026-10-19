@@ -4,18 +4,111 @@
 // =================================================================================
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, Clock, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Copy, Check, Share2, Linkedin } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { PostResponse } from '@/app/lib/types';
 import { getPosts } from '@/app/lib/api';
 import { useAuthStore } from '@/app/store/Store';
+import { getReadingTime } from '@/app/lib/readingTime';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/atom-one-dark.css';
 import PostLikeButton from '@/app/components/PostLikeButton';
 import PostComments from '@/app/components/PostComments';
+
+function PreBlock({ children, ...props }: React.ComponentPropsWithoutRef<'pre'>) {
+    const [copied, setCopied] = useState(false);
+    const preRef = useRef<HTMLPreElement>(null);
+
+    const handleCopy = () => {
+        if (!preRef.current) return;
+        const codeText = preRef.current.innerText || '';
+        navigator.clipboard.writeText(codeText);
+        setCopied(true);
+        toast.success('Código copiado');
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+        <div className="relative group my-6">
+            <button
+                onClick={handleCopy}
+                type="button"
+                aria-label="Copiar código"
+                className="absolute right-3 top-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity px-2.5 py-1 text-xs font-mono rounded-md bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 border border-zinc-600 flex items-center gap-1.5 backdrop-blur-sm cursor-pointer shadow-sm"
+            >
+                {copied ? (
+                    <>
+                        <Check className="w-3.5 h-3.5 text-green-400" />
+                        <span>Copiado</span>
+                    </>
+                ) : (
+                    <>
+                        <Copy className="w-3.5 h-3.5 text-zinc-300" />
+                        <span>Copiar</span>
+                    </>
+                )}
+            </button>
+            <pre ref={preRef} {...props}>
+                {children}
+            </pre>
+        </div>
+    );
+}
+
+function ShareButton({ slug }: { slug: string }) {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyLink = () => {
+        const url = typeof window !== 'undefined' ? window.location.href : `https://ivargasm.com/perspectivas/${slug}`;
+        navigator.clipboard.writeText(url);
+        setCopied(true);
+        toast.success('Enlace copiado al portapapeles');
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleShareLinkedIn = () => {
+        const url = encodeURIComponent(typeof window !== 'undefined' ? window.location.href : `https://ivargasm.com/perspectivas/${slug}`);
+        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        window.open(shareUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    return (
+        <div className="flex items-center gap-2">
+            <button
+                onClick={handleCopyLink}
+                type="button"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all duration-200 hover:scale-105 cursor-pointer"
+                style={{
+                    backgroundColor: 'var(--surface)',
+                    borderColor: 'var(--border)',
+                    color: 'var(--text-primary)'
+                }}
+                title="Copiar enlace"
+            >
+                {copied ? <Check className="w-4 h-4 text-green-500" /> : <Share2 className="w-4 h-4" />}
+                <span>{copied ? 'Copiado' : 'Compartir'}</span>
+            </button>
+            <button
+                onClick={handleShareLinkedIn}
+                type="button"
+                className="p-2 rounded-xl border transition-all duration-200 hover:scale-105 cursor-pointer"
+                style={{
+                    backgroundColor: 'var(--surface)',
+                    borderColor: 'var(--border)',
+                    color: 'var(--text-primary)'
+                }}
+                title="Compartir en LinkedIn"
+                aria-label="Compartir en LinkedIn"
+            >
+                <Linkedin className="w-4 h-4" />
+            </button>
+        </div>
+    );
+}
 
 interface PostClientViewProps {
     initialPost: PostResponse | null;
@@ -129,7 +222,7 @@ export default function PostClientView({ initialPost }: PostClientViewProps) {
                         </div>
                         <div className="flex items-center gap-1">
                             <Clock className="w-4 h-4" />
-                            8 min de lectura
+                            {getReadingTime(post.content)}
                         </div>
                     </div>
                 </div>
@@ -166,14 +259,20 @@ export default function PostClientView({ initialPost }: PostClientViewProps) {
                         '--tw-prose-bold': 'var(--text-primary)',
                         '--tw-prose-headings': 'var(--text-primary)',
                     } as React.CSSProperties}>
-                    <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                    <ReactMarkdown
+                        rehypePlugins={[rehypeHighlight]}
+                        components={{
+                            pre: PreBlock,
+                        }}
+                    >
                         {post.content}
                     </ReactMarkdown>
                 </div>
 
-                {/* Botón de Like */}
-                <div className="mt-12 flex justify-center">
+                {/* Botón de Like y Compartir */}
+                <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
                     <PostLikeButton postId={post.id} />
+                    <ShareButton slug={post.slug} />
                 </div>
             </article>
 

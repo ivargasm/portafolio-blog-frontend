@@ -4,7 +4,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Scale, Code, Database, BookOpen, Shield, FileText, ArrowRight, Sparkles } from 'lucide-react';
+import { Scale, Code, Database, BookOpen, Shield, FileText, ArrowRight, Sparkles, FileDown } from 'lucide-react';
 
 export default function SobreMiPage() {
     return (
@@ -74,6 +74,19 @@ function HeroSection() {
                                 <Scale className="w-5 h-5" style={{ color: 'var(--primary)' }} />
                                 <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Legal Tech</span>
                             </div>
+                        </div>
+
+                        <div className="pt-2">
+                            <a
+                                href="https://res.cloudinary.com/ivargasm/image/upload/v1792427415/ivargasm/CV_Ismael_Vargas_Martinez_v2_o5cbxy.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-6 py-3.5 font-semibold text-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                                style={{ backgroundColor: 'var(--primary)' }}
+                            >
+                                <FileDown className="w-5 h-5" />
+                                Descargar CV (PDF)
+                            </a>
                         </div>
                     </div>
 

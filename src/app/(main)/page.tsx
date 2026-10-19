@@ -4,7 +4,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Database, Code, Scale, Sparkles } from 'lucide-react';
+import { ArrowRight, Database, Code, Scale, Sparkles, FileDown } from 'lucide-react';
 
 // Componente principal de la página de inicio
 export default function HomePage() {
@@ -61,10 +61,10 @@ function HeroSection() {
                             Uniendo scripts de Python y lógica jurídica para innovar en LegalTech.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                        <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-4">
                             <Link
                                 href="/proyectos"
-                                className="group inline-flex items-center justify-center px-8 py-4 font-semibold text-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                                className="group inline-flex items-center justify-center px-7 py-3.5 font-semibold text-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                                 style={{ backgroundColor: 'var(--primary)' }}
                             >
                                 Explorar Proyectos
@@ -72,7 +72,7 @@ function HeroSection() {
                             </Link>
                             <Link
                                 href="/perspectivas"
-                                className="inline-flex items-center justify-center px-8 py-4 font-semibold rounded-lg border-2 transition-all duration-300 transform hover:scale-105"
+                                className="inline-flex items-center justify-center px-7 py-3.5 font-semibold rounded-lg border-2 transition-all duration-300 transform hover:scale-105"
                                 style={{
                                     borderColor: 'var(--border)',
                                     color: 'var(--text-primary)',
@@ -81,6 +81,20 @@ function HeroSection() {
                             >
                                 Leer Investigación
                             </Link>
+                            <a
+                                href="https://res.cloudinary.com/ivargasm/image/upload/v1792427415/ivargasm/CV_Ismael_Vargas_Martinez_v2_o5cbxy.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center px-7 py-3.5 font-semibold rounded-lg border-2 transition-all duration-300 transform hover:scale-105"
+                                style={{
+                                    borderColor: 'var(--border)',
+                                    color: 'var(--text-primary)',
+                                    backgroundColor: 'var(--surface)'
+                                }}
+                            >
+                                <FileDown className="mr-2 h-5 w-5" style={{ color: 'var(--primary)' }} />
+                                Descargar CV
+                            </a>
                         </div>
 
                         <div className="flex items-center gap-8 pt-8 border-t" style={{ borderColor: 'var(--border)' }}>

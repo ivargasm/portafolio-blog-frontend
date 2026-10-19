@@ -11,6 +11,7 @@ import { Calendar, Clock, Sparkles, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '@/app/store/Store';
 import { getPosts } from '@/app/lib/api';
 import { PostResponse } from '@/app/lib/types';
+import { getReadingTime } from '@/app/lib/readingTime';
 
 export default function PerspectivasPage() {
     const apiUrl = useAuthStore((state) => state.url);
@@ -179,7 +180,7 @@ export default function PerspectivasPage() {
                                                     })}
                                                 </span>
                                                 <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                                                    • 8 min de lectura
+                                                    • {getReadingTime(featuredPost.content)}
                                                 </span>
                                             </div>
 
@@ -261,7 +262,7 @@ export default function PerspectivasPage() {
                                                     </div>
                                                     <div className="flex items-center gap-1">
                                                         <Clock className="w-3 h-3" />
-                                                        8 min
+                                                        {getReadingTime(post.content).replace(' de lectura', '')}
                                                     </div>
                                                 </div>
                                             </div>
